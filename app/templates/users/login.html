@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% block content %}
+<form method="post" action="{{ url_for('users.login') }}">
+    {{ form.csrf_token() }}
+
+    {{ form.name.label }}
+    <input name="name" value="">
+
+    {{ form.password.label }}
+    <input type="password" name="password" value="">
+
+    <input type="checkbox" name="remember_me">
+    <label>Оставаться в системе</label>
+
+    <input style="display:none" name="next_page" value="{{ request.args.get("next") }}">
+    <input type="submit" value="Вход">
+</form>
+{% endblock %}
