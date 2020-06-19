@@ -1,14 +1,18 @@
-from flask import Flask, g
+# coding: utf-8
+
+from flask import Flask, g as flask_global
 from flask_bootstrap import Bootstrap
 from flask_login import LoginManager, current_user
 from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
 
+CONFIG_FILE = '/path/config.py'
+
 app = Flask(__name__)
 login = LoginManager()
 bootstrap = Bootstrap(app)
 
-app.config.from_object('config.DevelopmentConfig')
+app.config.from_pyfile(CONFIG_FILE)
 
 config = app.config
 
@@ -29,4 +33,4 @@ login.login_view = 'users.login'
 
 @app.before_request
 def before_request():
-    g.user = current_user
+    flask_global.user = current_user
